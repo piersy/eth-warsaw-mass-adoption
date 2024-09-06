@@ -14,17 +14,15 @@ interface IResolverService {
  */
 contract OffchainResolver is IExtendedResolver {
     string public url;
-    mapping(address=>bool) public signers;
+    address public signer;
 
-    event NewSigners(address[] signers);
+    event NewSigner(address signer);
     error OffchainLookup(address sender, string[] urls, bytes callData, bytes4 callbackFunction, bytes extraData);
 
-    constructor(string memory _url, address[] memory _signers) {
+    constructor(string memory _url, address _signer) {
         url = _url;
-        for(uint i = 0; i < _signers.length; i++) {
-            signers[_signers[i]] = true;
-        }
-        emit NewSigners(_signers);
+        signer = _signer;
+        emit NewSigner(_signer);
     }
 
     function makeSignatureHash(address target, uint64 expires, bytes memory request, bytes memory result) external pure returns(bytes32) {
@@ -54,9 +52,9 @@ contract OffchainResolver is IExtendedResolver {
      * Callback used by CCIP read compatible clients to verify and parse the response.
      */
     function resolveWithProof(bytes calldata response, bytes calldata extraData) external view returns(bytes memory) {
-        (address signer, bytes memory result) = SignatureVerifier.verify(extraData, response);
+        (address signerV, bytes memory result) = SignatureVerifier.verify(extraData, response);
         require(
-            signers[signer],
+            signerV == signer,
             "SignatureVerifier: Invalid sigature");
         return result;
     }
