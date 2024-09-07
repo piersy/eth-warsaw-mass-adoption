@@ -10,7 +10,7 @@ export function validatePhoneNumber(phoneNumber: string): boolean {
 export async function sendSmsVerificationToken(phoneNumber: string) {
   try {
     if (!validatePhoneNumber(phoneNumber)) {
-      throw "Attempting to hash a non-e164 number: " + phoneNumber;
+      throw `Attempting to hash a non-e164 number: ${phoneNumber}`;
     }
 
     const data = JSON.stringify({
@@ -25,17 +25,19 @@ export async function sendSmsVerificationToken(phoneNumber: string) {
       },
       body: data,
     });
-    console.log("Verification request response:", response);
+    const json = await response.json();
+    console.log("sendSmsVerificationToken response: ", json);
+    return json;
   } catch (error) {
-    throw `Failed SMS verification: ${error}`;
+    throw `Failed to send SMS verification token: ${error}`;
   }
 }
 
-export async function verifyToken(phoneNumber: string, receivedCode: string): Promise<boolean> {
+export async function verifySmsToken(phoneNumber: string, token: string) {
   try {
     const data = JSON.stringify({
       to: phoneNumber,
-      code: receivedCode,
+      code: token,
     });
     const response = await fetch(`${process.env.NEXT_PUBLIC_TWILIO_URL}/check-verify`, {
       method: "POST",
@@ -44,12 +46,10 @@ export async function verifyToken(phoneNumber: string, receivedCode: string): Pr
       },
       body: data,
     });
-
     const json = await response.json();
-    console.log("verification response", json.success);
-    return json.success;
+    console.log("verifySmsToken response: ", json);
+    return json;
   } catch (error) {
-    console.error(error);
-    return false;
+    throw `Failed to verify SMS verification token: ${error}`;
   }
 }
