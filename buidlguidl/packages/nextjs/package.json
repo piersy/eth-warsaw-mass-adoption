@@ -14,6 +14,7 @@
     "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
   },
   "dependencies": {
+    "@celo/identity": "^5.1.2",
     "@heroicons/react": "~2.0.11",
     "@rainbow-me/rainbowkit": "2.1.2",
     "@tanstack/react-query": "~5.28.6",
@@ -22,7 +23,9 @@
     "blo": "~1.0.1",
     "burner-connector": "~0.0.8",
     "daisyui": "4.5.0",
+    "ethers": "^6.12.1",
     "next": "~14.0.4",
+    "next-auth": "^4.24.7",
     "next-themes": "~0.2.1",
     "nprogress": "~0.2.0",
     "qrcode.react": "~3.1.0",
