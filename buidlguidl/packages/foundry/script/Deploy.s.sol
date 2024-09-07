@@ -25,7 +25,7 @@ contract DeployScript is ScaffoldETHDeploy {
     );
 
     OffchainResolver offchainResolver = new OffchainResolver(
-      "https://api.yourdomain.com",
+      "http://svc-331-u22133.vm.elestio.app:8000",
       vm.addr(deployerPrivateKey)
     );
     console.logString(
