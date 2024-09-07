@@ -62,7 +62,7 @@ module.exports = {
   },
   namedAccounts: {
     signer: {
-      default: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
+      default: '0x2C302520E6B344d8396BF3011862046287ef88c7',
     },
     deployer: {
       default: 1,

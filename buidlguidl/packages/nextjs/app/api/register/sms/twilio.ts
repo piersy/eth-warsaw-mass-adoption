@@ -8,15 +8,19 @@ export function validatePhoneNumber(phoneNumber: string): boolean {
 }
 
 export async function sendSmsVerificationToken(phoneNumber: string) {
+  console.log("sendSmsVerificationToken phoneNumber: ", phoneNumber);
   try {
     if (!validatePhoneNumber(phoneNumber)) {
-      throw "Attempting to hash a non-e164 number: " + phoneNumber;
+      throw `Attempting to hash a non-e164 number: ${phoneNumber}`;
     }
 
     const data = JSON.stringify({
       to: phoneNumber,
       channel: "sms",
     });
+
+    console.log(process.env.NEXT_PUBLIC_TWILIO_URL);
+    console.log(data);
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_TWILIO_URL}/start-verify`, {
       method: "POST",
@@ -25,17 +29,24 @@ export async function sendSmsVerificationToken(phoneNumber: string) {
       },
       body: data,
     });
-    console.log("Verification request response:", response);
+    if (response.status !== 200) {
+      throw `Failed to send SMS verification token. status: ${response.status}, text: ${await response.text()}`;
+    }
+
+    console.info("status", response.status);
+    const json = await response.json();
+    console.log("sendSmsVerificationToken response: ", json);
+    return json;
   } catch (error) {
-    throw `Failed SMS verification: ${error}`;
+    throw `Failed to send SMS verification token: ${error}`;
   }
 }
 
-export async function verifyToken(phoneNumber: string, receivedCode: string): Promise<boolean> {
+export async function verifySmsToken(phoneNumber: string, token: string): Promise<boolean>  {
   try {
     const data = JSON.stringify({
       to: phoneNumber,
-      code: receivedCode,
+      code: token,
     });
     const response = await fetch(`${process.env.NEXT_PUBLIC_TWILIO_URL}/check-verify`, {
       method: "POST",
@@ -46,10 +57,10 @@ export async function verifyToken(phoneNumber: string, receivedCode: string): Pr
     });
 
     const json = await response.json();
-    console.log("verification response", json.success);
+    console.log("verifySmsToken response: ", json);
     return json.success;
   } catch (error) {
-    console.error(error);
+    console.error(`Failed to verify SMS verification token: ${error}`);
     return false;
   }
 }

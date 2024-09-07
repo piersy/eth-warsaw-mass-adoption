@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./DeployHelpers.s.sol";
+import "../contracts/OffchainResolver.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
   error InvalidPrivateKey(string);
@@ -14,6 +15,16 @@ contract DeployScript is ScaffoldETHDeploy {
       );
     }
     vm.startBroadcast(deployerPrivateKey);
+
+    OffchainResolver offchainResolver = new OffchainResolver(
+      "http://svc-331-u22133.vm.elestio.app:8000/{sender}/{data}.json",
+      vm.addr(deployerPrivateKey)
+    );
+    console.logString(
+      string.concat(
+        "OffchainResolver deployed at: ", vm.toString(address(offchainResolver))
+      )
+    );
 
     vm.stopBroadcast();
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LookupResponse } from "../pages/api/socialconnect/lookup";
+import { LookupResponse } from "../api/lookup/route";
 import { IdentifierPrefix } from "@celo/identity/lib/odis/identifier";
 import { useAccount, useWalletClient } from "wagmi";
 
@@ -58,25 +58,14 @@ export const useSocialConnect = () => {
     }
   };
 
-  /**
-   * Registers the given identifier for the current wallet client by making a POST request
-   * to the "/api/socialconnect/register" endpoint with the account address, identifier, and
-   * identifier type as the request body. Returns true if the registration is successful,
-   * false otherwise. Uses the getIdentifierPrefix() function to determine the identifier type.
-   *
-   * @param identifier The identifier to register.
-   * @returns True if the registration is successful, false otherwise.
-   */
-  const register = async (identifier: string) => {
+  const sendVerifySms = async (phoneNumber: string) => {
     if (walletClient) {
       try {
         setLoading(true);
-        const response = await fetch("/api/socialconnect/register", {
+        const response = await fetch("/api/register/sms/send", {
           method: "POST",
           body: JSON.stringify({
-            account: walletClient?.account.address,
-            identifier: identifier,
-            identifierType: getIdentifierPrefix(),
+            phoneNumber,
           }),
         });
 
@@ -93,6 +82,41 @@ export const useSocialConnect = () => {
       } finally {
         setLoading(false);
       }
+    } else {
+      console.error("Wallet client not found");
+      return false;
+    }
+  };
+
+  const register = async (phoneNumber: string, token: string) => {
+    if (walletClient) {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/register/sms/verify", {
+          method: "POST",
+          body: JSON.stringify({
+            address: walletClient?.account.address,
+            identifier: phoneNumber,
+            token,
+          }),
+        });
+
+        const registerResponse = await response.json();
+
+        if (registerResponse.error) {
+          console.error(registerResponse.error);
+          return false;
+        }
+        return true;
+      } catch (error: any) {
+        console.error(error.message);
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      console.error("Wallet client not found");
+      return false;
     }
   };
 
@@ -133,5 +157,6 @@ export const useSocialConnect = () => {
     revoke,
     register,
     lookupAddress,
+    sendVerifySms,
   };
 };
