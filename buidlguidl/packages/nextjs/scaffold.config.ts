@@ -12,7 +12,7 @@ import { defineChain } from 'viem'
 
 
 export const localnetwork = /*#__PURE__*/ defineChain({
-  id: 11_155_111_123,
+  id: 31337,
   name: 'Localhost',
   nativeCurrency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {

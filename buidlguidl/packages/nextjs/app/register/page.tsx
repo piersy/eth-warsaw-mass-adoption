@@ -1,10 +1,7 @@
 "use client";
 
-<<<<<<< HEAD
 import { useSocialConnect } from "../SocialConnect/useSocialConnect";
-=======
 import { ethers } from "ethers";
->>>>>>> 46e00cf (frontend work)
 import type { NextPage } from "next";
 import { useAccount } from "wagmi";
 import { Address } from "~~/components/scaffold-eth";
@@ -42,12 +39,12 @@ const Register: NextPage = () => {
   useAsyncEffect(async () => {
   // Assuming options is defined somewhere in the code
     const options = {
-      provider: "https://eth-sepolia.g.alchemy.com/v2/HTXrOONPQ6fens0UJNb0t1oBcJ-rQe1v", // Example provider URL
+      provider: "http://127.0.0.1:8545", // Example provider URL
     };
-    const ensAddress = "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e"; // Example ENS registry address
+    const ensAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Example ENS registry address
     const provider = new ethers.providers.JsonRpcProvider(options.provider, {
-      chainId: 11155111,
-      name: "sepolia",
+      chainId: 31337,
+      name: "localhost",
       ensAddress: ensAddress,
     });
 
