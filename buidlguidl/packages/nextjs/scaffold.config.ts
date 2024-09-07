@@ -8,9 +8,44 @@ export type ScaffoldConfig = {
   onlyLocalBurnerWallet: boolean;
 };
 
+import { defineChain } from 'viem'
+
+
+export const localnetwork = /*#__PURE__*/ defineChain({
+  id: 11_155_111_123,
+  name: 'Localhost',
+  nativeCurrency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: ['http://127.0.0.1:8545'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'Etherscan',
+      url: 'https://WeDontHaveAExplorer.io',
+      apiUrl: 'https://WeDontHaveAExplorer.etherscan.io/api',
+    },
+  },
+  contracts: {
+    // multicall3: {
+    //   address: '0xca11bde05977b3631167028862be2a173976ca11',
+    //   blockCreated: 751532,
+    // },
+    ensRegistry: { address: '0x5FbDB2315678afecb367f032d93F642f64180aa3' },
+    // ensUniversalResolver: {
+    //   address: '0xc8Af999e38273D658BE1b921b88A9Ddf005769cC',
+    //   blockCreated: 5_317_080,
+    // },
+  },
+  testnet: true,
+})
+
+
+
 const scaffoldConfig = {
   // The networks on which your DApp is live
-  targetNetworks: [chains.sepolia],
+  targetNetworks: [localnetwork],
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect if you only target the local network (default is 4000)
