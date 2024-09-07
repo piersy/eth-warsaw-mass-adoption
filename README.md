@@ -20,6 +20,7 @@ node server.js
 
 # run frontend
 cd ../buidlguidl
+mkdir .git
 yarn
 yarn start
 ```
