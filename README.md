@@ -1,12 +1,13 @@
 # Social ENS
 
 - [Excalidraw](https://excalidraw.com/#json=-Bnib0tvubrZUIVZrkSWQ,YdA_3LXs4U-o2UV4ityiOQ)
+- [Presentation](https://docs.google.com/presentation/d/1CLFpoRBrp1Bbisu2Ri1YIvz8tq1I4X7_S5MVwPbe5Xw/edit?usp=sharing)
 
 ## Running the system
 
 ```sh
 export REMOTE_GATEWAY=http://localhost:3001
-cd offchain resolver/
+cd offchain_resolver/
 source .env
 yarn
 yarn build
