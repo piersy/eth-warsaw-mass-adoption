@@ -14,7 +14,10 @@
     "vercel:yolo": "vercel --build-env NEXT_PUBLIC_IGNORE_BUILD_ERROR=true"
   },
   "dependencies": {
+    "@celo/blind-threshold-bls": "1.0.0-beta",
+    "@celo/contractkit": "^7.1.0",
     "@celo/identity": "^5.1.2",
+    "@celo/poprf": "^0.1.9",
     "@heroicons/react": "~2.0.11",
     "@rainbow-me/rainbowkit": "2.1.2",
     "@tanstack/react-query": "~5.28.6",
@@ -33,6 +36,8 @@
     "react-copy-to-clipboard": "~5.1.0",
     "react-dom": "~18.2.0",
     "react-hot-toast": "~2.4.0",
+    "react-native-blind-threshold-bls": "^1.0.1",
+    "source-map-support": "^0.5.21",
     "use-debounce": "~8.0.4",
     "usehooks-ts": "2.13.0",
     "viem": "2.17.4",
@@ -58,5 +63,11 @@
     "type-fest": "~4.6.0",
     "typescript": "5.5.3",
     "vercel": "~32.4.1"
+  },
+  "browser": {
+    "@celo/poprf": false,
+    "crypto": false,
+    "net": false,
+    "source-map-support": false
   }
 }

@@ -12,7 +12,7 @@ export const ACCOUNTS_CONTRACT = require("./abis/Accounts.json");
 
 // Get addresses from here - https://github.com/celo-org/social-connect/blob/main/docs/protocol.md#smart-contract-addresses
 
-export const RPC =
+export const CELO_RPC_URL =
   process.env.NEXT_PUBLIC_ENVIRONMENT === "TESTNET"
     ? "https://alfajores-forno.celo-testnet.org"
     : "https://forno.celo.org";

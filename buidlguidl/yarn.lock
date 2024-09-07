@@ -206,6 +206,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@celo/blind-threshold-bls@npm:1.0.0-beta, blind-threshold-bls@npm:@celo/blind-threshold-bls@1.0.0-beta":
+  version: 1.0.0-beta
+  resolution: "@celo/blind-threshold-bls@npm:1.0.0-beta"
+  checksum: 908f6c12f933e1074abdd06121c6113407a4fa02764b513b6196ddb7c7b09e8500d25802f55cedc8d08c4f5e1584caa65f64243f31417de4bee44558cdd78106
+  languageName: node
+  linkType: hard
+
 "@celo/connect@npm:^5.2.0, @celo/connect@npm:^5.3.0":
   version: 5.3.0
   resolution: "@celo/connect@npm:5.3.0"
@@ -299,6 +306,13 @@ __metadata:
     is-base64: ^1.1.0
     node-fetch: ^2.6.9
   checksum: 484f3e697afc839c730767708cbfe948bee561669d171f9579345c2d222ff2fa931c8d43f98b1bff5b289f11cdc8abb1b20f907d13866f8b051d0ed8c3e0aaa1
+  languageName: node
+  linkType: hard
+
+"@celo/poprf@npm:^0.1.9":
+  version: 0.1.9
+  resolution: "@celo/poprf@npm:0.1.9"
+  checksum: c868e053294369cef791676951783c8f78d0d86160c8d2272af3f2dc8b58446149c8d906daea0169051eed98356861cffa6aafc609dca2a2f9962369592d5a4b
   languageName: node
   linkType: hard
 
@@ -1973,7 +1987,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@se-2/nextjs@workspace:packages/nextjs"
   dependencies:
+    "@celo/blind-threshold-bls": 1.0.0-beta
+    "@celo/contractkit": ^7.1.0
     "@celo/identity": ^5.1.2
+    "@celo/poprf": ^0.1.9
     "@heroicons/react": ~2.0.11
     "@rainbow-me/rainbowkit": 2.1.2
     "@tanstack/react-query": ~5.28.6
@@ -2006,6 +2023,8 @@ __metadata:
     react-copy-to-clipboard: ~5.1.0
     react-dom: ~18.2.0
     react-hot-toast: ~2.4.0
+    react-native-blind-threshold-bls: ^1.0.1
+    source-map-support: ^0.5.21
     tailwindcss: ~3.4.3
     type-fest: ~4.6.0
     typescript: 5.5.3
@@ -4031,13 +4050,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"blind-threshold-bls@npm:@celo/blind-threshold-bls@1.0.0-beta":
-  version: 1.0.0-beta
-  resolution: "@celo/blind-threshold-bls@npm:1.0.0-beta"
-  checksum: 908f6c12f933e1074abdd06121c6113407a4fa02764b513b6196ddb7c7b09e8500d25802f55cedc8d08c4f5e1584caa65f64243f31417de4bee44558cdd78106
-  languageName: node
-  linkType: hard
-
 "blo@npm:~1.0.1":
   version: 1.0.1
   resolution: "blo@npm:1.0.1"
@@ -4187,6 +4199,13 @@ __metadata:
   version: 0.2.13
   resolution: "buffer-crc32@npm:0.2.13"
   checksum: 06252347ae6daca3453b94e4b2f1d3754a3b146a111d81c68924c22d91889a40623264e95e67955b1cb4a68cbedf317abeabb5140a9766ed248973096db5ce1c
+  languageName: node
+  linkType: hard
+
+"buffer-from@npm:^1.0.0":
+  version: 1.1.2
+  resolution: "buffer-from@npm:1.1.2"
+  checksum: 0448524a562b37d4d7ed9efd91685a5b77a50672c556ea254ac9a6d30e3403a517d8981f10e565db24e8339413b43c97ca2951f10e399c6125a0d8911f5679bb
   languageName: node
   linkType: hard
 
@@ -10983,6 +11002,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-blind-threshold-bls@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "react-native-blind-threshold-bls@npm:1.0.1"
+  peerDependencies:
+    react: ^16.8.1
+    react-native: ">=0.60.0-rc.0 <1.0.x"
+  checksum: ec8d5ada9e1e58407b859c2653011c0a8a50807fa62df68bbd4418164e50c8cc2c24d6a20a0bbf703a0567dd73f3b30470f756dfff1673a61ff042e68e03a5d2
+  languageName: node
+  linkType: hard
+
 "react-native-webview@npm:^11.26.0":
   version: 11.26.1
   resolution: "react-native-webview@npm:11.26.1"
@@ -11840,10 +11869,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"source-map-support@npm:^0.5.21":
+  version: 0.5.21
+  resolution: "source-map-support@npm:0.5.21"
+  dependencies:
+    buffer-from: ^1.0.0
+    source-map: ^0.6.0
+  checksum: 43e98d700d79af1d36f859bdb7318e601dfc918c7ba2e98456118ebc4c4872b327773e5a1df09b0524e9e5063bb18f0934538eace60cca2710d1fa687645d137
+  languageName: node
+  linkType: hard
+
 "source-map@npm:^0.5.0":
   version: 0.5.7
   resolution: "source-map@npm:0.5.7"
   checksum: 5dc2043b93d2f194142c7f38f74a24670cd7a0063acdaf4bf01d2964b402257ae843c2a8fa822ad5b71013b5fcafa55af7421383da919752f22ff488bc553f4d
+  languageName: node
+  linkType: hard
+
+"source-map@npm:^0.6.0":
+  version: 0.6.1
+  resolution: "source-map@npm:0.6.1"
+  checksum: 59ce8640cf3f3124f64ac289012c2b8bd377c238e316fb323ea22fbfe83da07d81e000071d7242cad7a23cd91c7de98e4df8830ec3f133cb6133a5f6e9f67bc2
   languageName: node
   linkType: hard
 

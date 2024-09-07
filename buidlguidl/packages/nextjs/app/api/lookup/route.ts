@@ -1,9 +1,8 @@
 // Import necessary modules and types
 import { NextRequest, NextResponse } from "next/server";
-import { AuthenticationMethod } from "@celo/identity/lib/odis/query";
 import { JsonRpcProvider, Wallet } from "ethers";
 import { SocialConnectIssuer } from "~~/app/SocialConnect";
-import { RPC } from "~~/app/SocialConnect/utils";
+import { CELO_RPC_URL } from "~~/app/SocialConnect/utils";
 
 // Define the response type for the lookup function
 export type LookupResponse = {
@@ -13,15 +12,10 @@ export type LookupResponse = {
 
 export async function GET(req: NextRequest) {
   // Create a new wallet instance using the private key and JSON RPC provider
-  const wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY as string, new JsonRpcProvider(RPC));
+  const wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY as string, new JsonRpcProvider(CELO_RPC_URL));
 
   // Create a new instance of the SocialConnectIssuer
-  const issuer = new SocialConnectIssuer(wallet, {
-    authenticationMethod: AuthenticationMethod.ENCRYPTION_KEY,
-    // Use the recommended authentication method to save on ODIS quota
-    // For steps to set up DEK, refer to the provided GitHub link - https://github.com/celo-org/social-connect/blob/main/docs/key-setup.md
-    rawKey: process.env.DEK_PRIVATE_KEY as string,
-  });
+  const issuer = new SocialConnectIssuer(wallet);
 
   // Extract the identifier and its type from the request query
   const { identifier, identifierType } = await req.json();

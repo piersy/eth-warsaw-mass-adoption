@@ -1,5 +1,7 @@
 // Import necessary modules and types from various libraries
+import { WebBlsBlindingClient } from "./blinding/webBlindingClient";
 import {
+  CELO_RPC_URL,
   FA_CONTRACT,
   FA_PROXY_ADDRESS,
   ODIS_PAYMENTS_CONTRACT,
@@ -8,28 +10,27 @@ import {
   STABLE_TOKEN_ADDRESS,
   STABLE_TOKEN_CONTRACT,
 } from "./utils";
+import { ContractKit, newKit } from "@celo/contractkit";
 import { OdisUtils } from "@celo/identity";
 import { IdentifierPrefix } from "@celo/identity/lib/odis/identifier";
-import { AuthSigner, ServiceContext } from "@celo/identity/lib/odis/query";
+import { AuthSigner, AuthenticationMethod, ServiceContext } from "@celo/identity/lib/odis/query";
 import { Contract, Wallet } from "ethers";
 import { parseEther } from "viem";
 
-// Define constants
 export const ONE_CENT_CUSD = parseEther("0.01"); // Represents 0.01 cUSD in wei
 export const NOW_TIMESTAMP = Math.floor(new Date().getTime() / 1000); // Current UNIX timestamp
 
-// Define the SocialConnectIssuer class
 export class SocialConnectIssuer {
   // Declare class properties
   private readonly federatedAttestationsContract: Contract;
   private readonly odisPaymentsContract: Contract;
   private readonly stableTokenContract: Contract;
+  private readonly authSigner: AuthSigner; // Signer for ODIS authentication
+  private readonly issuerKit: ContractKit;
   readonly serviceContext: ServiceContext;
 
-  // Constructor for the class
   constructor(
-    private readonly wallet: Wallet, // User's wallet
-    private readonly authSigner: AuthSigner, // Signer for authentication
+    private readonly wallet: Wallet, // Issuer's wallet
   ) {
     // Initialize the service context
     this.serviceContext = OdisUtils.Query.getServiceContext(SERVICE_CONTEXT);
@@ -37,18 +38,32 @@ export class SocialConnectIssuer {
     this.federatedAttestationsContract = new Contract(FA_PROXY_ADDRESS, FA_CONTRACT.abi, this.wallet);
     this.odisPaymentsContract = new Contract(ODIS_PAYMENTS_PROXY_ADDRESS, ODIS_PAYMENTS_CONTRACT.abi, this.wallet);
     this.stableTokenContract = new Contract(STABLE_TOKEN_ADDRESS, STABLE_TOKEN_CONTRACT.abi, this.wallet);
+    // Setup contractkit for the issuer signer to authenticate to ODIS (NOTE: We should remove this requirement and instead allow ethers, viem or a raw key to be used)
+    this.issuerKit = newKit(CELO_RPC_URL);
+    this.issuerKit.addAccount(this.wallet.privateKey);
+    this.issuerKit.defaultAccount = this.wallet.address;
+    this.authSigner = {
+      authenticationMethod: AuthenticationMethod.WALLET_KEY,
+      contractKit: this.issuerKit,
+    };
   }
 
   // Method to get obfuscated ID
   async getObfuscatedId(plaintextId: string, identifierType: IdentifierPrefix) {
     // Fetch the obfuscated identifier using OdisUtils
     await this.checkAndTopUpODISQuota();
+
+    const blindingClient = new WebBlsBlindingClient(this.serviceContext.odisPubKey);
+
     const { obfuscatedIdentifier } = await OdisUtils.Identifier.getObfuscatedIdentifier(
       plaintextId,
       identifierType,
       this.wallet.address,
       this.authSigner,
       this.serviceContext,
+      undefined,
+      undefined,
+      blindingClient,
     );
     return obfuscatedIdentifier;
   }
@@ -76,14 +91,8 @@ export class SocialConnectIssuer {
   }
 
   // Method to register an on-chain identifier
-  async registerOnChainIdentifier(plaintextId: string, identifierType: IdentifierPrefix, address: string) {
-    const obfuscatedId = await this.getObfuscatedIdWithQuotaRetry(plaintextId, identifierType);
-
-    const tx = await this.federatedAttestationsContract.registerAttestationAsIssuer(
-      obfuscatedId,
-      address,
-      NOW_TIMESTAMP,
-    );
+  async registerOnChainIdentifier(onchainId: string, address: string) {
+    const tx = await this.federatedAttestationsContract.registerAttestationAsIssuer(onchainId, address, NOW_TIMESTAMP);
     const receipt = await tx.wait();
     return receipt;
   }
@@ -103,7 +112,7 @@ export class SocialConnectIssuer {
       this.authSigner,
       this.serviceContext,
     );
-    console.log("Remaining Quota", remainingQuota);
+    console.log("Remaining Quota", remainingQuota, this.serviceContext, this.wallet.address);
     return remainingQuota;
   }
 
