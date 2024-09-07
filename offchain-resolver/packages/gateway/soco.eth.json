@@ -1,0 +1,18 @@
+{
+    "test1.soco.eth.json": {
+        "addresses": {
+            "60": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+            "0":  "0x76a91462e907b15cbf27d5425399ebf6f0fb50ebb88f1888ac"
+        },
+        "text":{ "email": "test@example.com" },
+        "contenthash": "0xe301017012204edd2984eeaf3ddf50bac238ec95c5713fb40b5e428b508fdbe55d3b9f155ffe"
+    },
+    "test2.soco.eth.json": {
+        "addresses": {
+            "60": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+            "0":  "0x76a91462e907b15cbf27d5425399ebf6f0fb50ebb88f1888ac"
+        },
+        "text":{ "email": "test@example.com" },
+        "contenthash": "0xe301017012204edd2984eeaf3ddf50bac238ec95c5713fb40b5e428b508fdbe55d3b9f155ffe"
+    }
+}
