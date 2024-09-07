@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { LookupResponse } from "../pages/api/socialconnect/lookup";
+import { LookupResponse } from "../api/lookup/route";
 import { IdentifierPrefix } from "@celo/identity/lib/odis/identifier";
 import { useAccount, useWalletClient } from "wagmi";
 
