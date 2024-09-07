@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import "../contracts/YourContract.sol";
 import "./DeployHelpers.s.sol";
 import "../contracts/OffchainResolver.sol";
 
@@ -16,13 +15,6 @@ contract DeployScript is ScaffoldETHDeploy {
       );
     }
     vm.startBroadcast(deployerPrivateKey);
-
-    YourContract yourContract = new YourContract(vm.addr(deployerPrivateKey));
-    console.logString(
-      string.concat(
-        "YourContract deployed at: ", vm.toString(address(yourContract))
-      )
-    );
 
     OffchainResolver offchainResolver = new OffchainResolver(
       "http://svc-331-u22133.vm.elestio.app:8000/{sender}/{data}.json",
