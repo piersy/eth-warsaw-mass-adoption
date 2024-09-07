@@ -6,8 +6,29 @@ import { useAccount } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Address } from "~~/components/scaffold-eth";
 
+
+import { useEnsAddress } from 'wagmi'
+import { useState } from "react";
+// import { normalize } from 'viem/ens'
+
+
+function ResolveENS({ ensName }) {
+  console.log("Renders");
+  const { data: address, isLoading, error } = useEnsAddress({
+    name: ensName
+    // , chainId: 11155111
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error resolving ENS: {error.message}</div>;
+  return <div>{ensName} resolves to: {address}</div>;
+}
+
+
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
+  const [ensName, setENS] = useState("");
+  const [ensNameInput, setEnsNameInput] = useState("");
 
   return (
     <>
@@ -21,6 +42,24 @@ const Home: NextPage = () => {
             <p className="my-2 font-medium">Connected Address:</p>
             <Address address={connectedAddress} />
           </div>
+          <form>
+            <label>Enter your Phone number:
+              <input
+                type="text"
+                value={ensNameInput}
+                onChange={(event) => setEnsNameInput(event.target.value)}
+                />
+            </label>
+            .soco.eth {"    "}
+            {/* <input type="submit" onSubmit={(event) =>  setENS (event.value } /> */}
+            <input type="button" value="Submit" onClick={(event) =>  {
+              setENS(ensNameInput);
+              }} />
+          </form>
+
+          { ensName && <ResolveENS ensName={ensName} /> } 
+          {/* <ResolveENS ensName="soco.eth" /> */}
+
           <p className="text-center text-lg">
             Get started by editing{" "}
             <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
