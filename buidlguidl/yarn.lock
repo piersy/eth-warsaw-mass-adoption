@@ -12,13 +12,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@adraffy/ens-normalize@npm:1.10.1":
-  version: 1.10.1
-  resolution: "@adraffy/ens-normalize@npm:1.10.1"
-  checksum: 0836f394ea256972ec19a0b5e78cb7f5bcdfd48d8a32c7478afc94dd53ae44c04d1aa2303d7f3077b4f3ac2323b1f557ab9188e8059978748fdcd83e04a80dcc
-  languageName: node
-  linkType: hard
-
 "@alloc/quick-lru@npm:^5.2.0":
   version: 5.2.0
   resolution: "@alloc/quick-lru@npm:5.2.0"
@@ -482,7 +475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethereumjs/common@npm:2.5.0":
+"@ethereumjs/common@npm:2.5.0, @ethereumjs/common@npm:^2.5.0":
   version: 2.5.0
   resolution: "@ethereumjs/common@npm:2.5.0"
   dependencies:
@@ -492,7 +485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethereumjs/common@npm:2.6.5, @ethereumjs/common@npm:^2.5.0, @ethereumjs/common@npm:^2.6.4":
+"@ethereumjs/common@npm:2.6.5, @ethereumjs/common@npm:^2.6.4":
   version: 2.6.5
   resolution: "@ethereumjs/common@npm:2.6.5"
   dependencies:
@@ -2011,7 +2004,7 @@ __metadata:
     eslint-config-next: ~14.0.4
     eslint-config-prettier: ~8.5.0
     eslint-plugin-prettier: ~4.2.1
-    ethers: ^6.12.1
+    ethers: 5.7.2
     next: ~14.0.4
     next-auth: ^4.24.7
     next-themes: ~0.2.1
@@ -2432,12 +2425,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 22.5.4
-  resolution: "@types/node@npm:22.5.4"
+"@types/node@npm:*, @types/node@npm:^18.7.16":
+  version: 18.19.50
+  resolution: "@types/node@npm:18.19.50"
   dependencies:
-    undici-types: ~6.19.2
-  checksum: 77ac225c38c428200036780036da0bc6764e2721cfa8f528c7e7da7cfefe01a32a5791e28a54efbeedbc977949058d7db902b2e00139298225d4686cee4ae6db
+    undici-types: ~5.26.4
+  checksum: 73bdd2b46fb96816a1f7309e1b609f0832a29739c87df7daa729ff497160be143e02cf18486a0112e1981b092358aed3ca0716b532aff93c7e05f7dbb4f7586a
   languageName: node
   linkType: hard
 
@@ -2445,13 +2438,6 @@ __metadata:
   version: 14.18.33
   resolution: "@types/node@npm:14.18.33"
   checksum: 4e23f95186d8ae1d38c999bc6b46fe94e790da88744b0a3bfeedcbd0d9ffe2cb0ff39e85f43014f6739e5270292c1a1f6f97a1fc606fd573a0c17fda9a1d42de
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:18.15.13":
-  version: 18.15.13
-  resolution: "@types/node@npm:18.15.13"
-  checksum: 79cc5a2b5f98e8973061a4260a781425efd39161a0e117a69cd089603964816c1a14025e1387b4590c8e82d05133b7b4154fa53a7dffb3877890a66145e76515
   languageName: node
   linkType: hard
 
@@ -2466,15 +2452,6 @@ __metadata:
   version: 17.0.45
   resolution: "@types/node@npm:17.0.45"
   checksum: aa04366b9103b7d6cfd6b2ef64182e0eaa7d4462c3f817618486ea0422984c51fc69fd0d436eae6c9e696ddfdbec9ccaa27a917f7c2e8c75c5d57827fe3d95e8
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18.7.16":
-  version: 18.19.50
-  resolution: "@types/node@npm:18.19.50"
-  dependencies:
-    undici-types: ~5.26.4
-  checksum: 73bdd2b46fb96816a1f7309e1b609f0832a29739c87df7daa729ff497160be143e02cf18486a0112e1981b092358aed3ca0716b532aff93c7e05f7dbb4f7586a
   languageName: node
   linkType: hard
 
@@ -3531,13 +3508,6 @@ __metadata:
   version: 3.0.0
   resolution: "aes-js@npm:3.0.0"
   checksum: 251e26d533cd1a915b44896b17d5ed68c24a02484cfdd2e74ec700a309267db96651ea4eb657bf20aac32a3baa61f6e34edf8e2fec2de440a655da9942d334b8
-  languageName: node
-  linkType: hard
-
-"aes-js@npm:4.0.0-beta.5":
-  version: 4.0.0-beta.5
-  resolution: "aes-js@npm:4.0.0-beta.5"
-  checksum: cc2ea969d77df939c32057f7e361b6530aa6cb93cb10617a17a45cd164e6d761002f031ff6330af3e67e58b1f0a3a8fd0b63a720afd591a653b02f649470e15b
   languageName: node
   linkType: hard
 
@@ -5500,9 +5470,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.4":
-  version: 1.5.17
-  resolution: "electron-to-chromium@npm:1.5.17"
-  checksum: 8a9856ae4193b7cdaaa69da9a8fb7c63eacaf8722105fd1e0392172105384480676411a8bd25225bac15e64cde7936f36f869fcbc599de31b944128d55907ba0
+  version: 1.5.18
+  resolution: "electron-to-chromium@npm:1.5.18"
+  checksum: ee4ca16604804582fe3e94134bd42edc91316e14e09829c5324818157c669f60105c088de0de466888f656b15f07d8fdf62d450afa76f94b8a4b201cf474fe0b
   languageName: node
   linkType: hard
 
@@ -6586,22 +6556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:^6.12.1":
-  version: 6.13.2
-  resolution: "ethers@npm:6.13.2"
-  dependencies:
-    "@adraffy/ens-normalize": 1.10.1
-    "@noble/curves": 1.2.0
-    "@noble/hashes": 1.3.2
-    "@types/node": 18.15.13
-    aes-js: 4.0.0-beta.5
-    tslib: 2.4.0
-    ws: 8.17.1
-  checksum: 981860c736c7ae121774ad38ea07e3611ce524a77d2fcb77db499b65afe0cbe8f344cd5204d94b68b316349ff770fd2a7d9c8b2039da41c072f98d9864099925
-  languageName: node
-  linkType: hard
-
-"ethers@npm:~5.7.1":
+"ethers@npm:5.7.2, ethers@npm:^5.7.2, ethers@npm:~5.7.1":
   version: 5.7.2
   resolution: "ethers@npm:5.7.2"
   dependencies:
@@ -6852,17 +6807,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"extsprintf@npm:1.3.0":
+"extsprintf@npm:1.3.0, extsprintf@npm:^1.2.0":
   version: 1.3.0
   resolution: "extsprintf@npm:1.3.0"
   checksum: cee7a4a1e34cffeeec18559109de92c27517e5641991ec6bab849aa64e3081022903dd53084f2080d0d2530803aa5ee84f1e9de642c365452f9e67be8f958ce2
-  languageName: node
-  linkType: hard
-
-"extsprintf@npm:^1.2.0":
-  version: 1.4.1
-  resolution: "extsprintf@npm:1.4.1"
-  checksum: a2f29b241914a8d2bad64363de684821b6b1609d06ae68d5b539e4de6b28659715b5bea94a7265201603713b7027d35399d10b0548f09071c5513e65e8323d33
   languageName: node
   linkType: hard
 
@@ -9339,16 +9287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mkdirp@npm:*":
-  version: 3.0.1
-  resolution: "mkdirp@npm:3.0.1"
-  bin:
-    mkdirp: dist/cjs/src/bin.js
-  checksum: 972deb188e8fb55547f1e58d66bd6b4a3623bf0c7137802582602d73e6480c1c2268dcbafbfb1be466e00cc7e56ac514d7fd9334b7cf33e3e2ab547c16f83a8d
-  languageName: node
-  linkType: hard
-
-"mkdirp@npm:^0.5.5, mkdirp@npm:~0.5.1":
+"mkdirp@npm:*, mkdirp@npm:^0.5.5, mkdirp@npm:~0.5.1":
   version: 0.5.6
   resolution: "mkdirp@npm:0.5.6"
   dependencies:
@@ -10777,14 +10716,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"punycode@npm:2.1.0":
+"punycode@npm:2.1.0, punycode@npm:^2.1.0":
   version: 2.1.0
   resolution: "punycode@npm:2.1.0"
   checksum: d125d8f86cd89303c33bad829388c49ca23197e16ccf8cd398dcbd81b026978f6543f5066c66825b25b1dfea7790a42edbeea82908e103474931789714ab86cd
   languageName: node
   linkType: hard
 
-"punycode@npm:^2.1.0, punycode@npm:^2.1.1":
+"punycode@npm:^2.1.1":
   version: 2.3.1
   resolution: "punycode@npm:2.3.1"
   checksum: bb0a0ceedca4c3c57a9b981b90601579058903c62be23c5e8e843d2c2d4148a3ecf029d5133486fb0e1822b098ba8bba09e89d6b21742d02fa26bda6441a6fb2
@@ -11527,8 +11466,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
+    ethers: ^5.7.2
     husky: ~8.0.3
     lint-staged: ~13.2.2
+    use-async-effect: ^2.2.7
   languageName: unknown
   linkType: soft
 
@@ -12626,13 +12567,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.0":
-  version: 2.4.0
-  resolution: "tslib@npm:2.4.0"
-  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
   version: 2.7.0
   resolution: "tslib@npm:2.7.0"
@@ -12887,13 +12821,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.19.2":
-  version: 6.19.8
-  resolution: "undici-types@npm:6.19.8"
-  checksum: de51f1b447d22571cf155dfe14ff6d12c5bdaec237c765085b439c38ca8518fc360e88c70f99469162bf2e14188a7b0bcb06e1ed2dc031042b984b0bb9544017
-  languageName: node
-  linkType: hard
-
 "undici@npm:5.23.0":
   version: 5.23.0
   resolution: "undici@npm:5.23.0"
@@ -13068,6 +12995,15 @@ __metadata:
   version: 1.0.0
   resolution: "url-set-query@npm:1.0.0"
   checksum: 5ad73525e8f3ab55c6bf3ddc70a43912e65ff9ce655d7868fdcefdf79f509cfdddde4b07150797f76186f1a47c0ecd2b7bb3687df8f84757dee4110cf006e12d
+  languageName: node
+  linkType: hard
+
+"use-async-effect@npm:^2.2.7":
+  version: 2.2.7
+  resolution: "use-async-effect@npm:2.2.7"
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+  checksum: 81fe96df0e9db68fcf5b63a88307ba09896ddbdb6ea952fb00340d5f9d1393d06f2af4d8aa547b062cac2edaaf4bc383fc30f039054ce93bc9e61298ee52e938
   languageName: node
   linkType: hard
 
