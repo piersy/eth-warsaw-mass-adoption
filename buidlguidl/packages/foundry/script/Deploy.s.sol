@@ -3,6 +3,7 @@ pragma solidity ^0.8.19;
 
 import "../contracts/YourContract.sol";
 import "./DeployHelpers.s.sol";
+import "../contracts/OffchainResolver.sol";
 
 contract DeployScript is ScaffoldETHDeploy {
   error InvalidPrivateKey(string);
@@ -20,6 +21,16 @@ contract DeployScript is ScaffoldETHDeploy {
     console.logString(
       string.concat(
         "YourContract deployed at: ", vm.toString(address(yourContract))
+      )
+    );
+
+    OffchainResolver offchainResolver = new OffchainResolver(
+      "https://api.yourdomain.com",
+      vm.addr(deployerPrivateKey)
+    );
+    console.logString(
+      string.concat(
+        "OffchainResolver deployed at: ", vm.toString(address(offchainResolver))
       )
     );
 
