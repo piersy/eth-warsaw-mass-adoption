@@ -93,13 +93,26 @@ async function query(
   };
 }
 
-export function makeServer(signer: ethers.utils.SigningKey, db: Database) {
+  export function makeServer(signer: ethers.utils.SigningKey, dbMap: Map<string, Database>) {
+  // export function makeServer(signer: ethers.utils.SigningKey, db: Database) {
   const server = new Server();
   server.add(IResolverService_abi, [
     {
       type: 'resolve',
       func: async ([encodedName, data]: Result, request) => {
         const name = decodeDnsName(Buffer.from(encodedName.slice(2), 'hex'));
+        console.log('resolve', name, data, request);
+
+        // split the string on periods and get the third to last element
+        const subdomain = name.split('.').slice(-3)[0];
+        console.log('subdomain', subdomain);
+
+        const db = dbMap.get(subdomain);
+
+        if (!db) {
+            throw new Error(`Database for subdomain ${subdomain} not found.`);
+        }
+
         // Query the database
         const { result, validUntil } = await query(db, name, data);
 
@@ -126,9 +139,9 @@ export function makeServer(signer: ethers.utils.SigningKey, db: Database) {
 export function makeApp(
   signer: ethers.utils.SigningKey,
   path: string,
-  db: Database
+  dbMap: Map<string, Database>
 ) {
-  const app = makeServer(signer, db).makeApp(path);
+  const app = makeServer(signer, dbMap).makeApp(path);
   app.use(cors());
   return app;
 }

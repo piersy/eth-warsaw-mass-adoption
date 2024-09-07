@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { readFileSync } from 'fs';
 import { ethers } from 'ethers';
 import { JSONDatabase } from './json';
+import { Database } from './server';
 const program = new Command();
 program
   .requiredOption(
@@ -23,7 +24,10 @@ if (privateKey.startsWith('@')) {
 const address = ethers.utils.computeAddress(privateKey);
 const signer = new ethers.utils.SigningKey(privateKey);
 const db = JSONDatabase.fromFilename(options.data, parseInt(options.ttl));
-const app = makeApp(signer, '/', db);
+// make a map of string to database
+const dbMap = new Map<string, Database>();
+dbMap.set('file', db);
+const app = makeApp(signer, '/', dbMap);
 console.log(`Serving on port ${options.port} with signing address ${address}`);
 app.listen(parseInt(options.port));
 
