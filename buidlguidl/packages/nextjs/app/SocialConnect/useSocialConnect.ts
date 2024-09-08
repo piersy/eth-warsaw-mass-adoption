@@ -41,6 +41,9 @@ export const useSocialConnect = () => {
           identifierType: IdentifierPrefix.PHONE_NUMBER,
         }),
       });
+      if (response.status !== 200) {
+        throw `Failed to lookup ODIS id. status: ${response.status}, text: ${await response.text()}`;
+      }
 
       const lookupResponse: LookupOdisIdResponse = await response.json();
       return lookupResponse.obfuscatedId;
@@ -61,6 +64,9 @@ export const useSocialConnect = () => {
           identifierType: IdentifierPrefix.PHONE_NUMBER,
         }),
       });
+      if (response.status !== 200) {
+        throw `Failed to lookup address. status: ${response.status}, text: ${await response.text()}`;
+      }
 
       const lookupResponse: LookupResponse = await response.json();
       if (lookupResponse.accounts.length > 0) {
@@ -82,6 +88,10 @@ export const useSocialConnect = () => {
             phoneNumber,
           }),
         });
+
+        if (response.status !== 200) {
+          throw `Failed to send SMS token. status: ${response.status}, text: ${await response.text()}`;
+        }
 
         const registerResponse = await response.json();
 
@@ -114,6 +124,9 @@ export const useSocialConnect = () => {
             token,
           }),
         });
+        if (response.status !== 200) {
+          throw `Failed to reegister attestation. status: ${response.status}, text: ${await response.text()}`;
+        }
 
         const registerResponse = await response.json();
 
@@ -145,6 +158,9 @@ export const useSocialConnect = () => {
             identifierType: IdentifierPrefix.PHONE_NUMBER,
           }),
         });
+        if (response.status !== 200) {
+          throw `Failed to revoke attestation. status: ${response.status}, text: ${await response.text()}`;
+        }
 
         const deregisterResponse = await response.json();
         if (deregisterResponse.error) {

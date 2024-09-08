@@ -14,6 +14,11 @@ const nextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding", "@celo/blind-threshold-bls");
     return config;
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 module.exports = nextConfig;

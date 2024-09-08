@@ -2,11 +2,8 @@
 
 import { useSocialConnect } from "../SocialConnect/useSocialConnect";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { Address } from "~~/components/scaffold-eth";
 
 const Register: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
   const { register, sendVerifySms } = useSocialConnect();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -36,12 +33,8 @@ const Register: NextPage = () => {
       <div className="flex items-center flex-col flex-grow pt-10">
         <div className="px-5">
           <h1 className="text-center">
-            <span className="block text-4xl font-bold">Register your phone number</span>
+            <span className="block text-4xl font-bold">Register your ENS phone number</span>
           </h1>
-          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
-            <p className="my-2 font-medium">Connected Address:</p>
-            <Address address={connectedAddress} />
-          </div>
         </div>
 
         <div className="flex-grow bg-base-300 w-200 mt-16 px-8 py-12">
@@ -54,21 +47,12 @@ const Register: NextPage = () => {
                 type="tel"
                 id="phone"
                 name="phone"
-                placeholder="12345"
+                placeholder="+12345678910"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               />
-            </div>
-            <div>
-              <label htmlFor="address" className="block text-sm font-medium">
-                Address
+              <label htmlFor="ens-suffix" className="block text-sm font-medium">
+                .soco.eth
               </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                placeholder="0x2C302520E6B344d8396BF3011862046287ef88c7"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
             </div>
             <div>
               <label htmlFor="network" className="block text-sm font-medium">
@@ -76,7 +60,9 @@ const Register: NextPage = () => {
               </label>
               {/* <input type="text" id="network" name="network" className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" /> */}
               <select id="network" name="network">
-                <option value="op">OP</option>
+                <option>celo</option>
+                <option>op</option>
+                <option>zircuit</option>
               </select>
             </div>
             <div>

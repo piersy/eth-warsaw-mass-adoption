@@ -107,12 +107,19 @@ export class SocialConnectIssuer {
 
   // Method to check the remaining ODIS quota
   async checkODISQuota() {
-    const { remainingQuota } = await OdisUtils.Quota.getPnpQuotaStatus(
+    const { remainingQuota, warnings, performedQueryCount } = await OdisUtils.Quota.getPnpQuotaStatus(
       this.wallet.address,
       this.authSigner,
       this.serviceContext,
     );
-    console.log("Remaining Quota", remainingQuota, this.serviceContext, this.wallet.address);
+    console.log(
+      "Remaining Quota",
+      remainingQuota,
+      this.serviceContext,
+      this.wallet.address,
+      warnings,
+      performedQueryCount,
+    );
     return remainingQuota;
   }
 
