@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LookupResponse } from "../api/lookup/address-celo/route";
+import { LookupOdisIdResponse } from "../api/lookup/odis-id/route";
 import { IdentifierPrefix } from "@celo/identity/lib/odis/identifier";
 import { useAccount, useWalletClient } from "wagmi";
 
@@ -32,38 +33,34 @@ export const useSocialConnect = () => {
 
   const lookupOdisId = async (phoneNumber: string) => {
     if (walletClient) {
-      const response: Response = await fetch(
-        `/api/lookup/odis-id?${new URLSearchParams({
+      setLoading(true);
+      const response = await fetch("/api/lookup/odis-id", {
+        method: "POST",
+        body: JSON.stringify({
           identifier: phoneNumber,
           identifierType: IdentifierPrefix.PHONE_NUMBER,
-        })}`,
-        {
-          method: "GET",
-        },
-      );
+        }),
+      });
 
-      const lookupResponse: LookupResponse = await response.json();
-      if (lookupResponse.accounts.length > 0) {
-        return lookupResponse.accounts[0];
-      }
+      const lookupResponse: LookupOdisIdResponse = await response.json();
+      return lookupResponse.obfuscatedId;
     } else {
       console.error("Wallet client not found");
-      return false;
+      return "";
     }
   };
 
   // Looks up a Celo address using normal social connect (no ENS)
-  const lookupAddress = async (identifier: string) => {
+  const lookupAddress = async (phoneNumber: string) => {
     if (walletClient) {
-      const response: Response = await fetch(
-        `/api/lookup/address-celo?${new URLSearchParams({
-          identifier,
+      setLoading(true);
+      const response = await fetch("/api/lookup/address", {
+        method: "POST",
+        body: JSON.stringify({
+          identifier: phoneNumber,
           identifierType: IdentifierPrefix.PHONE_NUMBER,
-        })}`,
-        {
-          method: "GET",
-        },
-      );
+        }),
+      });
 
       const lookupResponse: LookupResponse = await response.json();
       if (lookupResponse.accounts.length > 0) {

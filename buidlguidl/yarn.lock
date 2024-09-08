@@ -6556,7 +6556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:5.7.2, ethers@npm:^5.7.2, ethers@npm:~5.7.1":
+"ethers@npm:5.7.2, ethers@npm:~5.7.1":
   version: 5.7.2
   resolution: "ethers@npm:5.7.2"
   dependencies:
@@ -11466,10 +11466,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "se-2@workspace:."
   dependencies:
-    ethers: ^5.7.2
     husky: ~8.0.3
     lint-staged: ~13.2.2
-    use-async-effect: ^2.2.7
   languageName: unknown
   linkType: soft
 
@@ -12995,15 +12993,6 @@ __metadata:
   version: 1.0.0
   resolution: "url-set-query@npm:1.0.0"
   checksum: 5ad73525e8f3ab55c6bf3ddc70a43912e65ff9ce655d7868fdcefdf79f509cfdddde4b07150797f76186f1a47c0ecd2b7bb3687df8f84757dee4110cf006e12d
-  languageName: node
-  linkType: hard
-
-"use-async-effect@npm:^2.2.7":
-  version: 2.2.7
-  resolution: "use-async-effect@npm:2.2.7"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 81fe96df0e9db68fcf5b63a88307ba09896ddbdb6ea952fb00340d5f9d1393d06f2af4d8aa547b062cac2edaaf4bc383fc30f039054ce93bc9e61298ee52e938
   languageName: node
   linkType: hard
 

@@ -1,6 +1,6 @@
 // Import necessary modules and types
 import { NextRequest, NextResponse } from "next/server";
-import { JsonRpcProvider, Wallet } from "ethers";
+import { Wallet, ethers } from "ethers";
 import { SocialConnectIssuer } from "~~/app/SocialConnect";
 import { CELO_RPC_URL } from "~~/app/SocialConnect/utils";
 
@@ -9,7 +9,10 @@ export async function POST(req: NextRequest) {
   const { identifier, account, identifierType } = await req.json();
 
   // Create a new wallet instance using the private key and JSON RPC provider
-  const wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY as string, new JsonRpcProvider(CELO_RPC_URL));
+  const wallet = new Wallet(
+    process.env.ISSUER_PRIVATE_KEY as string,
+    new ethers.providers.JsonRpcProvider(CELO_RPC_URL),
+  );
 
   // Create a new instance of the SocialConnectIssuer
   const issuer = new SocialConnectIssuer(wallet);

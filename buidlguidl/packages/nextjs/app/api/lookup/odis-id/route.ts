@@ -7,7 +7,7 @@ export type LookupOdisIdResponse = {
   obfuscatedId: string; // Obfuscated identifier
 };
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   // Create a new wallet instance using the private key and JSON RPC provider
   const wallet = new Wallet(
     process.env.ISSUER_PRIVATE_KEY as string,

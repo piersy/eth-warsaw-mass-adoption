@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifySmsToken } from "../twilio";
 import { IdentifierPrefix } from "@celo/identity/lib/odis/identifier";
-import { JsonRpcProvider, Wallet } from "ethers";
+import { Wallet, ethers } from "ethers";
 import { SocialConnectIssuer } from "~~/app/SocialConnect";
 import { CELO_RPC_URL } from "~~/app/SocialConnect/utils";
 
@@ -16,7 +16,10 @@ export async function POST(req: NextRequest) {
   // SMS verification successful, register the phone number
 
   // Create a new wallet instance using the private key and JSON RPC provider
-  const wallet = new Wallet(process.env.ISSUER_PRIVATE_KEY as string, new JsonRpcProvider(CELO_RPC_URL));
+  const wallet = new Wallet(
+    process.env.ISSUER_PRIVATE_KEY as string,
+    new ethers.providers.JsonRpcProvider(CELO_RPC_URL),
+  );
 
   // Create a new instance of the SocialConnectIssuer
   const issuer = new SocialConnectIssuer(wallet);
