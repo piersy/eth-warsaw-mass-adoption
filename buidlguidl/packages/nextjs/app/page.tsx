@@ -16,14 +16,17 @@ const Query: NextPage = () => {
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;
     const phone = form.phone.value;
-    const odisIdentifier = await lookupOdisId(phone);
+    console.log("Phone", phone);
+    const network = form.network.value;
+    console.log("Network", network);
 
+    const odisIdentifier = await lookupOdisId(phone);
     console.log("ODIS Identifier", odisIdentifier);
 
     const options = {
       provider: "http://127.0.0.1:8545", // Example provider URL
     };
-    const ensAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Example ENS registry address
+    const ensAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Static ENS registry address for local testnet
     const provider = new ethers.providers.JsonRpcProvider(options.provider, {
       chainId: 31337,
       name: "localhost",
@@ -31,16 +34,14 @@ const Query: NextPage = () => {
     });
 
     const shortId = odisIdentifier.slice(2, 34); // NOTE: ethers doesn't support ens names longer than 63 bytes
-    console.log(shortId);
-    const resolver = await provider.getResolver(`${shortId}.file.soco.eth`);
+    console.log(`shortId: ${shortId}`);
+    const ensPhoneNumberName = `${shortId}.${network}.soco.eth`;
+    console.log(`ensPhoneNumberName: ${ensPhoneNumberName}`);
+    const resolver = await provider.getResolver(ensPhoneNumberName);
     if (resolver) {
       const ethAddress = await resolver.getAddress();
-      const content = await resolver.getContentHash();
-      const email = await resolver.getText("email");
       console.log(`resolver address ${resolver.address}`);
       console.log(`eth address ${ethAddress}`);
-      console.log(`content ${content}`);
-      console.log(`email ${email}`);
       setResolved(ethAddress);
     }
   };
@@ -84,7 +85,11 @@ const Query: NextPage = () => {
                 name="network"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               >
-                <option defaultValue="op">OP</option>
+                <option>optimism</option>
+                <option>zircuit</option>
+                <option>mantle</option>
+                <option>datalake</option>
+                <option>celo</option>
               </select>
             </div>
             <div>
