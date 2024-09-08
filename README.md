@@ -35,3 +35,9 @@ Pushing ENS data storage to L2's opens new exciting possibilities for further de
 The solution to this problem are storage proofs. With systems like Herodotus it is possible to create an efficient proof that the contract on the L2 contains a certain entry or that an entry was available on a certain block height.
 
 Implementation would mainly live in the `Resolver` contract. During the callback the storage proof would be passed in as additional input and then verified, before returning the ENS data.
+
+## Bounties
+
+- ENS for the extension of ENS with phone numbers
+- DB forest for running the gateway server
+ 
