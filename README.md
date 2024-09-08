@@ -5,25 +5,37 @@
 
 ## Running the system
 
+Create a private key  PRIVATE_KEY and associated address. The private key will
+be used by the gateway for signing responses. The associated address ADDRESS
+will be passed to the resolver contract so that it can verify responses from
+the gateway.
+
 ```sh
+# run local chain
+# Substitute line 65 of `offchain-resolver/packages/contracts/hardhat.config.js` with ADDRESS 
 export REMOTE_GATEWAY=http://localhost:3001
 cd offchain_resolver/
-source .env
 yarn
 yarn build
 yarn start:node
 
-# run proxy
+#run gateway in new terminal
+yarn start:gateway -k PRIVATE_KEY -d soco.eth.json
+
+# run proxy in new temrinal
+export PROXY_TARGET=http://localhost:8000
 cd ../proxy
 yarn
 node server.js
 
-# run frontend
+# run frontend in new terminal
 cd ../buidlguidl
 mkdir .git
 yarn
 yarn start
 ```
+
+Navigate to the frontend.
 
 ## Why the proxy?
 
