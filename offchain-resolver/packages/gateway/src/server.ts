@@ -110,7 +110,8 @@ async function query(
         const db = dbMap.get(subdomain);
 
         if (!db) {
-            throw new Error(`Database for subdomain ${subdomain} not found.`);
+           // throw new Error(`Database for subdomain ${subdomain} not found.`);
+           return [ethers.utils.hexlify(0), 0, '0x'];
         }
 
         // Query the database

@@ -26,16 +26,26 @@ const address = ethers.utils.computeAddress(privateKey);
 const signer = new ethers.utils.SigningKey(privateKey);
 const db = JSONDatabase.fromFilename(options.data, parseInt(options.ttl));
 
-const provider = new ethers.providers.JsonRpcProvider("https://sepolia.optimism.io", {
+const opProvider = new ethers.providers.JsonRpcProvider("https://sepolia.optimism.io", {
   chainId: 11155420,
   name: "OP Sepolia",
 });
-const opContract =  new ethers.Contract("0x6157A59052d62183cd3D5726C2cA0bb8b049AE1F", abi, provider);
+const opContract =  new ethers.Contract("0x6157A59052d62183cd3D5726C2cA0bb8b049AE1F", abi, opProvider);
 const op = new ContractDatabase(opContract);
+
+const zircuitProvider = new ethers.providers.JsonRpcProvider("https://zircuit1-testnet.p2pify.com", {
+  chainId: 48899,
+  name: "zircuit",
+});
+const zircuitContract =  new ethers.Contract("0xc2A955E3cDf1a168c54683aa315eB9A536f1a62b", abi, zircuitProvider);
+const zircuit = new ContractDatabase(zircuitContract);
+
+
 // make a map of string to database
 const dbMap = new Map<string, Database>();
 dbMap.set('file', db);
-dbMap.set('op', op)
+dbMap.set('op', op);
+dbMap.set('zircuit', zircuit);
 const app = makeApp(signer, '/', dbMap);
 console.log(`Serving on port ${options.port} with signing address ${address}`);
 app.listen(parseInt(options.port));

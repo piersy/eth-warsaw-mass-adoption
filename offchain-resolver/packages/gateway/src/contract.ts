@@ -17,6 +17,7 @@ export class ContractDatabase implements Database {
         console.log("lookupAttestations", name);
         const nameHash = utils.keccak256(utils.toUtf8Bytes(name))
         console.log("nameHash", nameHash);
+        // console.log("contract", this.contract);
         return this.contract.lookupAttestations(nameHash, ["0x2C302520E6B344d8396BF3011862046287ef88c7"]).then((atts: any) => {
             const accounts = atts.accounts as string[];
 
