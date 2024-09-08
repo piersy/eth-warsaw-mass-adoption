@@ -41,11 +41,19 @@ const zircuitContract =  new ethers.Contract("0xc2A955E3cDf1a168c54683aa315eB9A5
 const zircuit = new ContractDatabase(zircuitContract);
 
 
+const celoProvider = new ethers.providers.JsonRpcProvider("https://alfajores-forno.celo-testnet.org", {
+  chainId: 44787,
+  name: "celo",
+});
+const celoContract =  new ethers.Contract("0x70F9314aF173c246669cFb0EEe79F9Cfd9C34ee3", abi, celoProvider);
+const celo = new ContractDatabase(celoContract);
+
 // make a map of string to database
 const dbMap = new Map<string, Database>();
 dbMap.set('file', db);
 dbMap.set('op', op);
 dbMap.set('zircuit', zircuit);
+dbMap.set('celo', celo);
 const app = makeApp(signer, '/', dbMap);
 console.log(`Serving on port ${options.port} with signing address ${address}`);
 app.listen(parseInt(options.port));
