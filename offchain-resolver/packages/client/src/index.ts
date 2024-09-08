@@ -24,12 +24,12 @@ const provider = new ethers.providers.JsonRpcProvider(options.provider, {
   let resolver = await provider.getResolver(name);
   if (resolver) {
     let ethAddress = await resolver.getAddress();
-    let content = await resolver.getContentHash();
-    let email = await resolver.getText('email');
+    // let content = await resolver.getContentHash();
+    // let email = await resolver.getText('email');
     console.log(`resolver address ${resolver.address}`);
     console.log(`eth address ${ethAddress}`);
-    console.log(`content ${content}`);
-    console.log(`email ${email}`);
+    // console.log(`content ${content}`);
+    // console.log(`email ${email}`);
 
     // Commenting out the following lines because they aren't supported by example json
     // let btcAddress = await resolver.getAddress(0);
