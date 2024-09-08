@@ -15,6 +15,11 @@
         "text":{ "email": "test2@example.com" },
         "contenthash": "0xe301017012204edd2984eeaf3ddf50bac238ec95c5713fb40b5e428b508fdbe55d3b9f155ffe"
     },
+    "89fdbf4be8327317ee5e915c8c9f4133.file.soco.eth": {
+        "addresses": {
+            "60": "0xa1ec51aad88f6f4ce6ab8827279cfffb92266"
+        }
+    },
     "*.file.soco.eth": {
         "addresses": {
             "60": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
