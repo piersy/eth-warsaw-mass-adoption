@@ -1,6 +1,13 @@
 # Social ENS
 
 - [Presentation](https://docs.google.com/presentation/d/1CLFpoRBrp1Bbisu2Ri1YIvz8tq1I4X7_S5MVwPbe5Xw/edit?usp=sharing)
+- [Demo](https://www.loom.com/share/a8ff235c08e74ea09717b2123be1db0d?sid=50a65ef0-1f03-4865-ae1a-97f5a9ecddbc)
+
+# Team Members
+Alec Schaefer
+Martin Volpe
+Paul Lange
+Piers Powlesland
 
 ## Running the system
 
