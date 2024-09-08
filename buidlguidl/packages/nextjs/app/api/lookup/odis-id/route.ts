@@ -12,7 +12,10 @@ export async function POST(req: NextRequest) {
   console.log(`CELO_RPC_URL: ${CELO_RPC_URL}`);
   const wallet = new Wallet(
     process.env.ISSUER_PRIVATE_KEY as string,
-    new ethers.providers.JsonRpcProvider(CELO_RPC_URL, {
+    new ethers.providers.JsonRpcProvider({
+      url: CELO_RPC_URL,
+      skipFetchSetup: true 
+    },{
       chainId: 44787,
       name: 'celo-alfajores',
     }),

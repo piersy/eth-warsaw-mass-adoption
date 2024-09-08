@@ -14,7 +14,13 @@ export async function POST(req: NextRequest) {
   // Create a new wallet instance using the private key and JSON RPC provider
   const wallet = new Wallet(
     process.env.ISSUER_PRIVATE_KEY as string,
-    new ethers.providers.JsonRpcProvider(CELO_RPC_URL),
+    new ethers.providers.JsonRpcProvider({
+      url: CELO_RPC_URL,
+      skipFetchSetup: true 
+    },{
+      chainId: 44787,
+      name: 'celo-alfajores',
+    }),
   );
 
   // Create a new instance of the SocialConnectIssuer
