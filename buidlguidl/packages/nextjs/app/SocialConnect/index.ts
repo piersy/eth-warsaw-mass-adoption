@@ -72,11 +72,17 @@ export class SocialConnectIssuer {
   async checkAndTopUpODISQuota() {
     const remainingQuota = await this.checkODISQuota();
 
+    console.log(`CELO_RPC_URL  **** : ${CELO_RPC_URL} ${remainingQuota}`);
+
     // If quota is less than 1, top it up
     if (remainingQuota < 1) {
+      console.log(`CELO_RPC_URL  444 : ${CELO_RPC_URL} ${remainingQuota}`);
       await this.stableTokenContract.increaseAllowance(ODIS_PAYMENTS_PROXY_ADDRESS, ONE_CENT_CUSD);
+      console.log(`CELO_RPC_URL  555 : ${CELO_RPC_URL} ${remainingQuota}`);
       const walletAddress = await this.wallet.getAddress();
+      console.log(`walletAddress: ${walletAddress}`);
       await this.odisPaymentsContract.payInCUSD(walletAddress, ONE_CENT_CUSD);
+      console.log("************")
     }
   }
 
@@ -107,12 +113,19 @@ export class SocialConnectIssuer {
 
   // Method to check the remaining ODIS quota
   async checkODISQuota() {
-    const { remainingQuota } = await OdisUtils.Quota.getPnpQuotaStatus(
+    const { remainingQuota, warnings, performedQueryCount } = await OdisUtils.Quota.getPnpQuotaStatus(
       this.wallet.address,
       this.authSigner,
       this.serviceContext,
     );
-    console.log("Remaining Quota", remainingQuota, this.serviceContext, this.wallet.address);
+    console.log(
+      "Remaining Quota",
+      remainingQuota,
+      this.serviceContext,
+      this.wallet.address,
+      warnings,
+      performedQueryCount,
+    );
     return remainingQuota;
   }
 

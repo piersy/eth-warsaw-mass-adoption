@@ -9,10 +9,15 @@ export type LookupOdisIdResponse = {
 
 export async function POST(req: NextRequest) {
   // Create a new wallet instance using the private key and JSON RPC provider
+  console.log(`CELO_RPC_URL: ${CELO_RPC_URL}`);
   const wallet = new Wallet(
     process.env.ISSUER_PRIVATE_KEY as string,
     new ethers.providers.JsonRpcProvider(CELO_RPC_URL),
   );
+
+  console.log(`wallet.address: ${wallet.address}`);
+  console.log(`wallet.privateKey: ${wallet.privateKey}`);
+  console.log(`wallet.provider: ${wallet.provider}`);
 
   // Create a new instance of the SocialConnectIssuer
   const issuer = new SocialConnectIssuer(wallet);
@@ -21,7 +26,7 @@ export async function POST(req: NextRequest) {
   const { identifier, identifierType } = await req.json();
 
   // Perform the lookup using the issuer instance
-  const odisId = await issuer.getObfuscatedId(identifier, identifierType);
+  const odisId = await issuer.getObfuscatedIdWithQuotaRetry(identifier, identifierType);
 
   return NextResponse.json({ obfuscatedId: odisId });
 }

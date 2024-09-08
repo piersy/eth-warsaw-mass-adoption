@@ -56,6 +56,10 @@ export async function verifySmsToken(phoneNumber: string, token: string): Promis
       body: data,
     });
 
+    if (response.status !== 200) {
+      throw `Failed to verify SMS token. status: ${response.status}, text: ${await response.text()}`;
+    }
+
     const json = await response.json();
     console.log("verifySmsToken response: ", json);
     return json.success;
