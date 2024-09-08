@@ -14,11 +14,11 @@ const Register: NextPage = () => {
     if (success) {
       const token = prompt("Enter the verification token sent to your phone");
       if (token) {
-        const registered = await register(phone, token);
-        if (registered) {
-          alert("Phone number registered successfully");
+        const res = await register(phone, token);
+        if (res.success) {
+          alert("Phone number registered successfully!");
         } else {
-          alert("Failed to register phone number, registration may already exist");
+          alert(`Could not register phone number. Registration may already exist. Reason: ${res.error}`);
         }
       } else {
         alert("Verification token not provided");

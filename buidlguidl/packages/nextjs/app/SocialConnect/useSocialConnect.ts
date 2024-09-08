@@ -112,7 +112,7 @@ export const useSocialConnect = () => {
     }
   };
 
-  const register = async (phoneNumber: string, token: string) => {
+  const register = async (phoneNumber: string, token: string): Promise<{ success: true } | { success: false, error: string }> => {
     if (walletClient) {
       try {
         setLoading(true);
@@ -125,25 +125,24 @@ export const useSocialConnect = () => {
           }),
         });
         if (response.status !== 200) {
-          throw `Failed to reegister attestation. status: ${response.status}, text: ${await response.text()}`;
+          return { success: false, error: `Failed to reegister attestation. status: ${response.status}, text: ${await response.text()}` };
         }
 
         const registerResponse = await response.json();
 
         if (registerResponse.error) {
           console.error(registerResponse.error);
-          return false;
+          return { success: false, error: registerResponse.error as string };
         }
-        return true;
+        return { success: true };
       } catch (error: any) {
         console.error(error.message);
-        return false;
+        return { success: false, error: error.message as string };
       } finally {
         setLoading(false);
       }
     } else {
-      console.error("Wallet client not found");
-      return false;
+      return { success: false, error: "Wallet client not found" };
     }
   };
 
