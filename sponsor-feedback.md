@@ -27,7 +27,5 @@ in us needing to run a local proxy to get around this.
 We also encountered a strange issue where we were not able to successfully make
 the the ccip read callback to contracts deployed on a non local chain the calls
 would revert despite deploying with exactly the same parameters, the same
-gateway process and the same client code.
-
-We did not get to the bottom of this so ended up deploying the
-offchain-resolver on a local chain.
+gateway process and the same client code. We did not get to the bottom of this
+so ended up deploying the offchain-resolver on a local chain.
