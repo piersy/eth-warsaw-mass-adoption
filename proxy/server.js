@@ -5,9 +5,10 @@ const app = express();
 
 // Define the proxy options
 const proxyOptions = {
-  target: 'http://svc-331-u22133.vm.elestio.app:8000',  // Replace with the actual external URL
+  target: 'http://localhost:8082',  // Replace with the actual external URL of the ENS Gateway Server
   changeOrigin: true,
   onProxyReq: (proxyReq, req, res) => {
+    console.log('Proxying request to:', proxyReq.getHeader('host') + proxyReq.path);
     proxyReq.setHeader('Origin', 'http://localhost');  // Optional: Replace with your domain if necessary
   }
 };
@@ -17,5 +18,5 @@ app.use('/', createProxyMiddleware(proxyOptions));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`Proxy server running on port ${PORT}`);
+  console.log(`Proxy server running on port ${PORT} proxying to ${proxyOptions.target}`);
 });

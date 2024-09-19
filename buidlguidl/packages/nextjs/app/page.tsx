@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSocialConnect } from "./SocialConnect/useSocialConnect";
 import { ethers } from "ethers";
 import type { NextPage } from "next";
+import { GetENSNameFromOdisId } from "./api/identifiers";
 
 const Lookup: NextPage = () => {
   const { lookupOdisId } = useSocialConnect();
@@ -30,14 +31,14 @@ const Lookup: NextPage = () => {
       ensAddress: ensAddress,
     });
 
-    const shortId = odisIdentifier.slice(2, 34); // NOTE: ethers doesn't support ens names longer than 63 bytes
-    console.log(`shortId: ${shortId}`);
-    const ensPhoneNumberName = `${shortId}.${network}.soco.eth`;
-    console.log(`ensPhoneNumberName: ${ensPhoneNumberName}`);
+    const ensPhoneNumberName = GetENSNameFromOdisId(odisIdentifier, network);
+
+    // const onchainId = utils.keccak256(utils.toUtf8Bytes(ensPhoneNumberName))
+    // console.log(`onchainId: ${onchainId}`);
     const resolver = await provider.getResolver(ensPhoneNumberName);
     if (resolver) {
-      const ethAddress = await resolver.getAddress();
       console.log(`resolver address ${resolver.address}`);
+      const ethAddress = await resolver.getAddress();
       console.log(`eth address ${ethAddress}`);
       setResolved(ethAddress);
     }

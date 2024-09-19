@@ -12,7 +12,7 @@ if (process.env.DEPLOYER_KEY && process.env.OWNER_KEY) {
 const gatewayurl =
   'https://offchain-resolver-example.uc.r.appspot.com/{sender}/{data}.json';
 
-let devgatewayurl = 'http://localhost:8080/{sender}/{data}.json';
+let devgatewayurl = 'http://localhost:3001/{sender}/{data}.json';
 if (process.env.REMOTE_GATEWAY) {
   devgatewayurl =
     `${process.env.REMOTE_GATEWAY}/{sender}/{data}.json`;
@@ -62,7 +62,7 @@ module.exports = {
   },
   namedAccounts: {
     signer: {
-      default: '0x2C302520E6B344d8396BF3011862046287ef88c7',
+      default: '0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
     },
     deployer: {
       default: 1,

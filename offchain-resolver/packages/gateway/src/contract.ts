@@ -1,4 +1,4 @@
-import { ethers, utils} from "ethers";
+import { ethers, utils } from "ethers";
 import { Database } from "./server";
 
 export const abi = [
@@ -18,10 +18,13 @@ export class ContractDatabase implements Database {
         const nameHash = utils.keccak256(utils.toUtf8Bytes(name))
         console.log("nameHash", nameHash);
         // console.log("contract", this.contract);
-        return this.contract.lookupAttestations(nameHash, ["0x2C302520E6B344d8396BF3011862046287ef88c7"]).then((atts: any) => {
+        return this.contract.lookupAttestations(nameHash, ["0x8FE3AC4F2b2612E9244305CB6b811d9DD0450142"]).then((atts: any) => {
             const accounts = atts.accounts as string[];
 
+            console.log("attestations: ", atts);
+
             if (accounts.length > 0) {
+                console.log("found account: ", accounts[0]);
                 return {
                     addr: accounts[0],
                     ttl: 60,

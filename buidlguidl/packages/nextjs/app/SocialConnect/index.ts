@@ -126,10 +126,7 @@ export class SocialConnectIssuer {
   // Method to lookup attestations
   async lookup(plaintextId: string, identifierType: IdentifierPrefix, issuerAddresses: string[]) {
     const obfuscatedId = await this.getObfuscatedId(plaintextId, identifierType);
-    const attestations = await this.federatedAttestationsContract.lookupAttestations(
-      await this.getObfuscatedIdWithQuotaRetry(plaintextId, identifierType),
-      issuerAddresses,
-    );
+    const attestations = await this.federatedAttestationsContract.lookupAttestations(obfuscatedId, issuerAddresses);
 
     return {
       accounts: attestations.accounts as string[],

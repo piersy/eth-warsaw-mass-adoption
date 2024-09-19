@@ -86,9 +86,18 @@ async function query(
     throw new Error(`Unsupported query function ${signature}`);
   }
 
+  console.log('QUERY:', name, signature, args);
+
   const { result, ttl } = await handler(db, name, args.slice(1));
+
+  console.log('RESULT:', result, ttl);
+
+  const encodeResult = Resolver.encodeFunctionResult(signature, result);
+
+  console.log('ENCODE_RESULT:', encodeResult);
+
   return {
-    result: Resolver.encodeFunctionResult(signature, result),
+    result: encodeResult,
     validUntil: Math.floor(Date.now() / 1000 + ttl),
   };
 }
@@ -117,6 +126,8 @@ async function query(
         // Query the database
         const { result, validUntil } = await query(db, name, data);
 
+        console.log('QUERY_RESULT:', result, validUntil);
+
         // Hash and sign the response
         let messageHash = ethers.utils.solidityKeccak256(
           ['bytes', 'address', 'uint64', 'bytes32', 'bytes32'],
@@ -130,6 +141,9 @@ async function query(
         );
         const sig = signer.signDigest(messageHash);
         const sigData = hexConcat([sig.r, sig._vs]);
+
+        // Return the result
+        console.log('SIG_RESULT:', result, validUntil, sigData);
         return [result, validUntil, sigData];
       },
     },
